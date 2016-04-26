@@ -2,8 +2,8 @@
 
 import React, {Component} from 'react';
 import AltContainer from 'alt-container';
-import CategoryStore from '../../stores/CategoryStore';
-import CategoryActions from '../../actions/CategoryActions';
+import UserStore from '../../stores/UserStore';
+import UserActions from '../../actions/UserActions';
 
 class Form extends Component {
 
@@ -11,7 +11,7 @@ class Form extends Component {
 
 		super(props, context);
 
-		let { name, parent_id } = CategoryStore.getCategory(this.props.id);
+		let { name, parent_id } = UserStore.getUser(this.props.id);
 		this.name = name;
 		this.parent = parent_id;
 	}
@@ -23,33 +23,33 @@ class Form extends Component {
 			});
 	}
 
-	submitCategory(e) {
+	submitUser(e) {
 		e.preventDefault();
-		let category = {
+		let User = {
 			id: this.props.id,
 			name: this.name.value,
 			parent_id: this.parent.value
 		};
 
-		CategoryActions.editCategory(category);
+		UserActions.editUser(User);
 		this.props.router.push({ pathname: `/admin/categories`});
 	}
 
 	render() {
 
-		let parents = this.props.categories.map( category => {
-				if(category.id == this.parent){
-					return <option key={category.id} value={ category.id } selected>{ category.name }</option>;
+		let parents = this.props.users.map( User => {
+				if(User.id == this.parent){
+					return <option key={User.id} value={ User.id } selected>{ User.name }</option>;
 				}
-				return <option key={category.id} value={ category.id }>{ category.name }</option>;
+				return <option key={User.id} value={ User.id }>{ User.name }</option>;
 			}
 		);
 
 		return (
 			<div>
-				<h2 className="page-title">Categories</h2>
+				<h2 className="page-title">Users</h2>
 				<div className="panel panel-default" style={ {overflow: 'visible'}}>
-					<div className="panel-heading">Add new category</div>
+					<div className="panel-heading">Add new User</div>
 					<div className="panel-body">
 						<form method="get" className="form-horizontal">
 
@@ -57,7 +57,7 @@ class Form extends Component {
 								<label className="col-sm-2 control-label">Parent</label>
 								<div className="col-sm-10">
 									<select className="selectpicker" ref={ c => this.parent = c } defaultValue={this.parent}>
-										<optgroup label="Select parent category">
+										<optgroup label="Select parent User">
 											{ parents }
 											<option value="0" selected>None</option>
 										</optgroup>
@@ -75,7 +75,7 @@ class Form extends Component {
 							<div className="hr-dashed"></div>
 							<div className="form-group">
 								<div className="col-sm-8 col-sm-offset-2">
-									<button className="btn btn-primary" onClick={ this.submitCategory.bind(this) }>Submit</button>
+									<button className="btn btn-primary" onClick={ this.submitUser.bind(this) }>Submit</button>
 								</div>
 							</div>
 
@@ -88,7 +88,7 @@ class Form extends Component {
 	}
 }
 
-class EditCategory extends Component {
+class EditUser extends Component {
 
 	constructor(props, context){
 		super(props, context);
@@ -96,15 +96,15 @@ class EditCategory extends Component {
 
 	render() {
 		return (
-			<AltContainer store={CategoryStore}>
+			<AltContainer store={UserStore}>
 				<Form id={this.props.params.id} router={this.context.router} />
 			</AltContainer>
 		);
 	}
 }
 
-EditCategory.contextTypes = {
+EditUser.contextTypes = {
   router: React.PropTypes.object.isRequired
 };	
 
-export default EditCategory;
+export default EditUser;

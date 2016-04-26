@@ -3,8 +3,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import AltContainer from 'alt-container';
-import CategoryStore from '../../stores/CategoryStore';
-import CategoryActions from '../../actions/CategoryActions';
+import UserStore from '../../stores/UserStore';
+import UserActions from '../../actions/UserActions';
 
 class List extends Component {
 
@@ -12,10 +12,10 @@ class List extends Component {
 		$('#categories_tb').DataTable();
 	}
 
-	deleteCategory(id, e) {
+	deleteUser(id, e) {
 		e.preventDefault();
 		if (window.confirm("Do you really want to delete?")) {
-			CategoryActions.deleteCategory(id);
+			UserActions.deleteUser(id);
 		}
 	}
 
@@ -29,26 +29,26 @@ class List extends Component {
 			);
 		}
 
-		let categories = this.props.categories.map( (category, index) => 
-			<tr key={ category.id }>
+		let categories = this.props.users.map( (User, index) => 
+			<tr key={ User.id }>
 				<td>{ index + 1 }</td>
-				<td>{ category.name }</td>
+				<td>{ User.name }</td>
 				<td>
-					<Link className="btn btn-info" to={`/admin/categories/${category.id}`}><i className="fa fa-edit"></i> Edit</Link>
-					<button className="btn btn-danger" onClick={this.deleteCategory.bind(this, category.id)}><i className="fa fa-trash"></i> Delete</button>
+					<Link className="btn btn-info" to={`/admin/categories/${User.id}`}><i className="fa fa-edit"></i> Edit</Link>
+					<button className="btn btn-danger" onClick={this.deleteUser.bind(this, User.id)}><i className="fa fa-trash"></i> Delete</button>
 				</td>
 			</tr>
 		);
 		return (
 			<div>
-				<h2 className="page-title">Categories</h2>
+				<h2 className="page-title">Users</h2>
 
 				<div className="panel panel-default">
-					<div className="panel-heading">List of category</div>
+					<div className="panel-heading">List of User</div>
 					<div className="panel-body">
 
 						<div className="well">
-							<Link to="/admin/categories/new" className="btn btn-success">Add new category</Link>
+							<Link to="/admin/categories/new" className="btn btn-success">Add new User</Link>
 						</div>
 
 						<table id="categories_tb" className="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
@@ -67,7 +67,7 @@ class List extends Component {
 								</tr>
 							</tfoot>
 							<tbody>
-								{ categories }
+								{ users }
 							</tbody>
 						</table>
 
@@ -78,19 +78,19 @@ class List extends Component {
 	}
 }
 
-class Category extends Component {
+class User extends Component {
 
 	componentDidMount(){
-		CategoryStore.fetchCategories();
+		UserStore.fetchCategories();
 	}
 
 	render() {
 		return (
-			<AltContainer store={ CategoryStore }>
+			<AltContainer store={ UserStore }>
 				<List />
 			</AltContainer>
 		);
 	}
 }
 
-export default Category;
+export default User;

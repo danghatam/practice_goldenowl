@@ -1,26 +1,26 @@
 'use strict';
 
-import CategoryActions from '../actions/CategoryActions';
-import CategoryAPI from '../api/category';
+import UserActions from '../actions/UserActions';
+import UserAPI from '../api/User';
 
-const CategorySource = {
+const UserSource = {
 	
 	fetchCategories() {
 		return {
 			remote() {
-				return CategoryAPI.list();
+				return UserAPI.list();
 			},
 
 			local() {
 				return null;
 			},
 
-			success: CategoryActions.getCategories,
-			error: CategoryActions.categoriesFailed
+			success: UserActions.getUsers,
+			error: UserActions.usersFailed
 
 		};
 	}
 
 };
 
-export default CategorySource;
+export default UserSource;

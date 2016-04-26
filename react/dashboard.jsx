@@ -16,18 +16,10 @@ class Dashboard extends Component {
 						<li className="ts-label">Main</li>
 
 						<li>
-							<a href="#"><i className="fa fa-folder"></i> Category</a>
+							<a href="#"><i className="fa fa-folder"></i> User</a>
 							<ul>
-								<li><Link to='/admin/categories'>List categories</Link></li>
-								<li><Link to='/admin/categories/new'>Add new category</Link></li>
-							</ul>
-						</li>
-
-						<li>
-							<a href="#"><i className="fa fa-tree"></i> Product</a>
-							<ul>
-								<li><Link to="/admin/products">List products</Link></li>
-								<li><Link to="/admin/products/new">Add new product</Link></li>
+								<li><Link to='/admin/categories'>List users</Link></li>
+								<li><Link to='/admin/categories/new'>Add new user</Link></li>
 							</ul>
 						</li>
 

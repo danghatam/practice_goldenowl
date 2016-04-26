@@ -4,22 +4,22 @@ class UserAPI {
 
 	authenticate() {
 		return new Promise( (resolve, reject) => {
-			fetch('/api/admin/categories', {
+			fetch('/api/users', {
 				method: 'POST',
 				headers: {
 					'Accept':'application/json',
 					'Content-Type': 'application/json'
 				},
 				credentials: 'same-origin',
-				body: JSON.stringify(category)
+				body: JSON.stringify(user)
 			})
 			.then( response => {
 				if(response.ok) return response.json(); 
 				else reject(response.statusText);
 			})
 			.then( res => {
-				category.id = res.id;
-				resolve(category);
+				user.id = res.id;
+				resolve(user);
 			})
 			.catch( err => reject(err) )
 		});
@@ -36,48 +36,48 @@ class UserAPI {
 		    credentials: 'same-origin'
 		  })
 		  .then( response => response.json())
-		  .then( categories => resolve(categories))
+		  .then( users => resolve(users))
 		  .catch( err => reject(err));
 		});
 	}
 
-	add(category) {
+	add(user) {
 		return new Promise( (resolve, reject) => {
-			fetch('/api/admin/categories', {
+			fetch('/api/users', {
 				method: 'POST',
 				headers: {
 					'Accept':'application/json',
 					'Content-Type': 'application/json'
 				},
 				credentials: 'same-origin',
-				body: JSON.stringify(category)
+				body: JSON.stringify(user)
 			})
 			.then( response => {
 				if(response.ok) return response.json(); 
 				else reject(response.statusText);
 			})
 			.then( res => {
-				category.id = res.id;
-				resolve(category);
+				user.id = res.id;
+				resolve(user);
 			})
 			.catch( err => reject(err) )
 		});
 	}
 
-	edit(category) {
+	edit(user) {
 		return new Promise( (resolve, reject) => {
-			fetch(`/api/admin/categories/${category.id}`, {
+			fetch(`/api/users/${user.id}`, {
 				method: 'PUT',
 				headers: {
 					'Accept':'application/json',
 					'Content-Type': 'application/json'
 				},
 				credentials: 'same-origin',
-				body: JSON.stringify(category)
+				body: JSON.stringify(user)
 			})
 			.then( response => {
 				if(response.ok) {
-					resolve(category);
+					resolve(user);
 				}
 				else {
 					reject(response.statusText);
@@ -89,7 +89,7 @@ class UserAPI {
 
 	delete(id) {
 		return new Promise( (resolve, reject) => {
-			fetch(`/api/admin/categories/${id}`, {
+			fetch(`/api/users/${id}`, {
 				method: 'DELETE',
 				header: {
 					'Accept':'application/json',
