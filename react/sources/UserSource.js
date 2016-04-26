@@ -1,11 +1,11 @@
 'use strict';
 
 import UserActions from '../actions/UserActions';
-import UserAPI from '../api/User';
+import UserAPI from '../api/user';
 
 const UserSource = {
 	
-	fetchCategories() {
+	fetchUsers() {
 		return {
 			remote() {
 				return UserAPI.list();

@@ -35,6 +35,7 @@ router.put('/:id', (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
+	console.log(req.params.id);
 	User.remove({ _id: req.params.id }, function(err) {
     if (!err) 
       res.status(200).send("Successfully");

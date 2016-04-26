@@ -2,9 +2,13 @@
 
 class UserAPI {
 
-	authenticate() {
+	constructor(){
+		this.token = null;
+	}
+
+	authenticate(user) {
 		return new Promise( (resolve, reject) => {
-			fetch('/api/users', {
+			fetch('/authenticate', {
 				method: 'POST',
 				headers: {
 					'Accept':'application/json',
@@ -18,8 +22,12 @@ class UserAPI {
 				else reject(response.statusText);
 			})
 			.then( res => {
-				user.id = res.id;
-				resolve(user);
+				if(res.success){
+					this.token = res.token;
+					resolve(res.token);
+				} else {
+					reject(res.message);
+				}
 			})
 			.catch( err => reject(err) )
 		});
@@ -31,7 +39,8 @@ class UserAPI {
 		    method: 'GET',
 		    headers: {
 		      'Accept': 'application/json',
-		      'Content-Type': 'application/json'
+		      'Content-Type': 'application/json',
+		      'x-access-token': this.token
 		    },
 		    credentials: 'same-origin'
 		  })
@@ -47,7 +56,8 @@ class UserAPI {
 				method: 'POST',
 				headers: {
 					'Accept':'application/json',
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+		      'x-access-token': this.token
 				},
 				credentials: 'same-origin',
 				body: JSON.stringify(user)
@@ -66,11 +76,12 @@ class UserAPI {
 
 	edit(user) {
 		return new Promise( (resolve, reject) => {
-			fetch(`/api/users/${user.id}`, {
+			fetch(`/api/users/${user._id}`, {
 				method: 'PUT',
 				headers: {
 					'Accept':'application/json',
-					'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+		      'x-access-token': this.token
 				},
 				credentials: 'same-origin',
 				body: JSON.stringify(user)
@@ -91,9 +102,9 @@ class UserAPI {
 		return new Promise( (resolve, reject) => {
 			fetch(`/api/users/${id}`, {
 				method: 'DELETE',
-				header: {
+				headers: {
 					'Accept':'application/json',
-					'Content-Type': 'application/json'
+		      'x-access-token': this.token
 				},
 				credentials: 'same-origin'
 			})

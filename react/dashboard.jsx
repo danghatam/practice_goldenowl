@@ -18,8 +18,8 @@ class Dashboard extends Component {
 						<li>
 							<a href="#"><i className="fa fa-folder"></i> User</a>
 							<ul>
-								<li><Link to='/admin/categories'>List users</Link></li>
-								<li><Link to='/admin/categories/new'>Add new user</Link></li>
+								<li><Link to='/users'>List users</Link></li>
+								<li><Link to='/users/new'>Add new user</Link></li>
 							</ul>
 						</li>
 

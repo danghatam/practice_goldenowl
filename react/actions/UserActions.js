@@ -1,40 +1,52 @@
 'use strict';
 
 import alt from '../alt';
-import CategoryAPI from '../api/category';
+import UserAPI from '../api/user';
 
-class CategoryActions {
-	getCategories(categories) {
-		return categories;
-	}
+class UserActions {
 
-	addCategory(category) {
+	authenticate(user){
 		return dispatch => {
-			CategoryAPI.add(category)
-			.then( category => dispatch(category))
-			.catch( err => this.categoriesFailed(err) );
+			UserAPI.authenticate(user)
+			.then( token => {
+				token = token;
+				dispatch(token);
+			})
+			.catch( err => this.usersFailed(err) );
 		};
 	}
 
-	editCategory(category) {
+	getUsers(users) {
+		return users;
+	}
+
+	addUser(user) {
 		return dispatch => {
-			CategoryAPI.edit(category)
-			.then( category => dispatch(category))
-			.catch( err => this.categoriesFailed(err) );
+			UserAPI.add(user)
+			.then( u => dispatch(u))
+			.catch( err => this.usersFailed(err) );
 		};
 	}
 
-	deleteCategory(id) {
+	editUser(User) {
 		return dispatch => {
-			CategoryAPI.delete(id)
+			UserAPI.edit(User)
+			.then( User => dispatch(User))
+			.catch( err => this.usersFailed(err) );
+		};
+	}
+
+	deleteUser(id) {
+		return dispatch => {
+			UserAPI.delete(id)
 			.then( id => dispatch(id) )
-			.catch( err => this.categoriesFailed(err) );
+			.catch( err => this.usersFailed(err) );
 		};
 	}
 
-	categoriesFailed(err) {
+	usersFailed(err) {
 		return err;
 	}
 }
 
-export default alt.createActions(CategoryActions);
+export default alt.createActions(UserActions);

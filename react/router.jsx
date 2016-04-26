@@ -5,16 +5,20 @@ import { Router, Route, IndexRoute, IndexRedirect, browserHistory } from 'react-
 import Dashboard from './dashboard';
 
 // COMPONENTS
-import ListCategories from './components/category/list';
+import ListUsers from './components/user/list';
+import NewUsers from './components/user/new';
+import EditUsers from './components/user/edit';
+import Login from './components/login';
 
 let routes = (
     <Router history={browserHistory}>
         <Route path='/' component={Dashboard}>
       		<Route path='users'>
-      			<IndexRoute component={ListCategories} />
-      			<Route path='new' component={NewCategory} />
-            <Route path=':id' component={EditCategory} />
+      			<IndexRoute component={ListUsers} />
+      			<Route path='new' component={NewUsers} />
+            <Route path=':id' component={EditUsers} />
       		</Route>
+          <IndexRoute component={Login} />
         </Route>
     </Router>
 );

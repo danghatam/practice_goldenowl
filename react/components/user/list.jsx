@@ -9,7 +9,7 @@ import UserActions from '../../actions/UserActions';
 class List extends Component {
 
 	componentDidUpdate() {
-		$('#categories_tb').DataTable();
+		$('#users_tb').DataTable();
 	}
 
 	deleteUser(id, e) {
@@ -29,13 +29,13 @@ class List extends Component {
 			);
 		}
 
-		let categories = this.props.users.map( (User, index) => 
-			<tr key={ User.id }>
+		let users = this.props.users.map( (user, index) => 
+			<tr key={ user._id }>
 				<td>{ index + 1 }</td>
-				<td>{ User.name }</td>
+				<td>{ user.username }</td>
 				<td>
-					<Link className="btn btn-info" to={`/admin/categories/${User.id}`}><i className="fa fa-edit"></i> Edit</Link>
-					<button className="btn btn-danger" onClick={this.deleteUser.bind(this, User.id)}><i className="fa fa-trash"></i> Delete</button>
+					<Link className="btn btn-info" to={`/users/${user._id}`}><i className="fa fa-edit"></i> Edit</Link>
+					<button className="btn btn-danger" onClick={this.deleteUser.bind(this, user._id)}><i className="fa fa-trash"></i> Delete</button>
 				</td>
 			</tr>
 		);
@@ -48,10 +48,10 @@ class List extends Component {
 					<div className="panel-body">
 
 						<div className="well">
-							<Link to="/admin/categories/new" className="btn btn-success">Add new User</Link>
+							<Link to="/users/new" className="btn btn-success">Add new User</Link>
 						</div>
 
-						<table id="categories_tb" className="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+						<table id="users_tb" className="display table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 							<thead>
 								<tr>
 									<th>Index</th>
@@ -81,7 +81,7 @@ class List extends Component {
 class User extends Component {
 
 	componentDidMount(){
-		UserStore.fetchCategories();
+		UserStore.fetchUsers();
 	}
 
 	render() {

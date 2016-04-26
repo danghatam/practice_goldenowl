@@ -7,26 +7,13 @@ import UserActions from '../../actions/UserActions';
 
 class Form extends Component {
 
-	componentDidMount() {
-		if(this.props.categories.length > 0){
-			$('.selectpicker').selectpicker({
-				dropupAuto: false
-			});
-		}
-	}
-	componentDidUpdate() {
-		$('.selectpicker').selectpicker({
-			dropupAuto: false
-		});
-	}
-
 	submitUser(e) {
 		e.preventDefault();
-		let User = {
-			name: this.name.value,
-			parent_id: this.parent.value
+		let user = {
+			username: this.username.value,
+			password: this.password.value
 		};
-		UserActions.addUser(User);
+		UserActions.addUser(user);
 	}
 
 	render() {
@@ -38,10 +25,6 @@ class Form extends Component {
 				<strong>Error!</strong> {this.props.error}
 			</div>
 			: null;
-		
-		let parents = this.props.users.map( User => 
-			<option key={User.id} value={ User.id }>{ User.name }</option>
-		);
 
 		return (
 			<div>
@@ -53,21 +36,16 @@ class Form extends Component {
 						<form method="get" className="form-horizontal">
 
 							<div className="form-group">
-								<label className="col-sm-2 control-label">Parent</label>
+								<label className="col-sm-2 control-label">Name</label>
 								<div className="col-sm-10">
-									<select className="selectpicker" ref={ c => this.parent = c }>
-										<optgroup label="Select parent User">
-											<option value="0">None</option>
-											{ parents }
-										</optgroup>
-									</select>
+									<input type="text" ref={ c => this.username = c } className="form-control" />
 								</div>
 							</div>
 
 							<div className="form-group">
-								<label className="col-sm-2 control-label">Name</label>
+								<label className="col-sm-2 control-label">Password</label>
 								<div className="col-sm-10">
-									<input type="text" ref={ c => this.name = c } className="form-control" />
+									<input type="password" ref={ c => this.password = c } className="form-control" />
 								</div>
 							</div>
 
@@ -88,12 +66,6 @@ class Form extends Component {
 }
 
 class NewUser extends Component {
-
-	componentWillMount() {
-		if(UserStore.usersIsEmpty()){
-			UserStore.fetchUsers();
-		}
-	}
 
 	render() {
 		return(
