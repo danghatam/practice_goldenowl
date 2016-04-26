@@ -5,6 +5,11 @@ import UserActions from '../actions/UserActions';
 
 class Form extends Component {
 
+	constructor(props, context){
+
+		super(props, context);
+	}
+
 	submitLogin(e){
 		e.preventDefault();
 		let user = {
@@ -16,7 +21,10 @@ class Form extends Component {
 	}
 
 	render() {
-
+		if(this.props.token){
+			this.props.router.push({ pathname: `/users`});
+			return( <div>Authenticated</div>)
+		}
 		return (
 			<div className="login-page bk-img">
 				<div className="form-content">
@@ -49,14 +57,22 @@ class Form extends Component {
 
 class Login extends Component {
 
+	constructor(props, context){
+		super(props, context);
+	}
+
 	render(){
 		return(
 			<AltContainer store={UserStore}>
-				<Form />
+				<Form router={this.context.router} />
 			</AltContainer>
 		)
 	}
 }
+
+Login.contextTypes = {
+  router: React.PropTypes.object.isRequired
+};	
 
 
 export default Login;
